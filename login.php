@@ -53,7 +53,7 @@ if (isset($_POST["login"])) {
     <title>Halaman Login</title>
     <style type="text/css">
         .inner {
-            margin: 200px auto;
+            margin: 100px auto;
             padding: 50px;
             width: 300px;
             border: 1px solid #333;

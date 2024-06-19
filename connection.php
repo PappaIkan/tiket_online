@@ -1,11 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "db_tiket_online";
-
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect('localhost','root','','db_ticket_online');
 
 // Check connection
 if (!$conn) {
