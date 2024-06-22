@@ -9,7 +9,7 @@ if (isset($_POST["login"])) {
 
     // Gunakan prepared statement untuk menghindari SQL injection
     $stmt = $conn->prepare("SELECT * FROM users WHERE email=? AND password=?");
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("ss", $email, $password); // Mengikat parameter email dan password
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
@@ -18,15 +18,17 @@ if (isset($_POST["login"])) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
         $_SESSION['username'] = $email;
+        $_SESSION['id'] = $row['id'];
         $_SESSION['role'] = $row['role'];
 
         // Arahkan berdasarkan role
         if ($row['role'] == 'admin') {
             header("Location: admin.php");
+            exit;
         } elseif ($row['role'] == 'user') {
             header("Location: index.php");
+            exit;
         }
-        exit;
     } else {
         $error = true;
     }

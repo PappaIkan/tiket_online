@@ -33,11 +33,11 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
             <th>Jam Keberangkatan</th>
         </tr>
         <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
-        <tr>
-            <td><?= $row['id']; ?></td>
-            <td><?= $row['city']; ?></td>
-            <td><?= $row['jam_keberangkatan']; ?></td>
-        </tr>
+            <tr>
+                <td><?= $row['id']; ?></td>
+                <td><?= $row['city']; ?></td>
+                <td><?= $row['jam_keberangkatan']; ?></td>
+            </tr>
         <?php endwhile; ?>
     </table>
     <h4>Jenis Tiket</h4>
@@ -48,11 +48,11 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
             <th>Harga</th>
         </tr>
         <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
-        <tr>
-            <td><?= $row['id']; ?></td>
-            <td><?= $row['class']; ?></td>
-            <td><?= $row['price']; ?></td>
-        </tr>
+            <tr>
+                <td><?= $row['id']; ?></td>
+                <td><?= $row['class']; ?></td>
+                <td><?= $row['price']; ?></td>
+            </tr>
         <?php endwhile; ?>
     </table>
 
