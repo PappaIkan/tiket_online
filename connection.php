@@ -1,6 +1,6 @@
 <?php
 // Create connection
-$conn = mysqli_connect('localhost','root','','db_ticket_online');
+$conn = mysqli_connect('localhost','root','','db_tiket_online');
 
 // Check connection
 if (!$conn) {

@@ -2,56 +2,42 @@
 require_once 'connection.php';
 session_start();
 
-// cek cookie
-if (isset($_COOKIE['username']) && isset($_COOKIE['pass'])) {
-    $username = $_COOKIE['username'];
-    $pass = $_COOKIE['pass'];
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$username' AND password='$pass'");
-    $row = mysqli_fetch_assoc($result);
+// Autentikasi login
+if (isset($_POST["login"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Gunakan prepared statement untuk menghindari SQL injection
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email=? AND password=?");
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
     if ($row) {
         $_SESSION['login'] = true;
-        $_SESSION['username'] = $username;
-        header("Location: index.php");
-        exit;
-    }
-}
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = $row['role'];
 
-// cek session
-if (isset($_SESSION["login"])) {
-    header("Location: index.php");
-    exit;
-}
-
-// autentikasi login
-if (isset($_POST["login"])) {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$username' AND password='$password'");
-
-    // cek username dan password
-    if (mysqli_num_rows($result) === 1) {
-        $_SESSION['login'] = true;
-        $_SESSION['username'] = $username;
-
-        // cek remember me
-        if (isset($_POST['remember'])) {
-            // buat cookie
-            setcookie('username', $username, time() + 86400); // 1 hari
-            setcookie('pass', $password, time() + 86400); // 1 hari
+        // Arahkan berdasarkan role
+        if ($row['role'] == 'admin') {
+            header("Location: admin.php");
+        } elseif ($row['role'] == 'user') {
+            header("Location: index.php");
         }
-        header("Location: index.php");
         exit;
+    } else {
+        $error = true;
     }
-    $error = true;
 }
 ?>
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Halaman Login</title>
-    <style type="text/css">
+    <style>
         .inner {
             margin: 100px auto;
             padding: 50px;
@@ -60,27 +46,21 @@ if (isset($_POST["login"])) {
         }
     </style>
 </head>
-
 <body>
     <div class="inner">
         <h1>Halaman Login</h1>
         <?php if (isset($error)): ?>
-            <p style="color: red; font-style: italic;">username / password salah</p>
+            <p style="color: red; font-style: italic;">Email atau password salah</p>
         <?php endif; ?>
         <form action="" method="post">
             <table border=0 cellpadding=5>
                 <tr>
-                    <td><label for="username">Email </label></td>
-                    <td><input type="text" name="username" id="username"></td>
+                    <td><label for="email">Email</label></td>
+                    <td><input type="text" name="email" id="email"></td>
                 </tr>
                 <tr>
-                    <td><label for="password">Password </label></td>
+                    <td><label for="password">Password</label></td>
                     <td><input type="password" name="password" id="password"></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="checkbox" name="remember" id="remember">
-                        <label for="remember">Remember me</label>
-                    </td>
                 </tr>
                 <tr>
                     <td><button type="submit" name="login">Login</button></td>
@@ -89,5 +69,4 @@ if (isset($_POST["login"])) {
         </form>
     </div>
 </body>
-
 </html>
