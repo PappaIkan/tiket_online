@@ -10,8 +10,21 @@ require_once 'connection.php';
 // Ambil username dari session
 $username = $_SESSION['username'];
 
-// Ambil data pemesanan
-$history_result = mysqli_query($conn, "SELECT * FROM booking WHERE users_email='$username'");
+// Ambil data pemesanan beserta informasi pengguna dan jadwal
+$query = "SELECT 
+              booking.booking_id, 
+              booking.jadwal_id, 
+              booking.booking_date, 
+              booking.booking_status, 
+              booking.type_ticket_id, 
+              booking.quantity, 
+              booking.total_price,
+              jadwal.jam_keberangkatan
+          FROM booking
+          JOIN users ON booking.user_id = users.id
+          JOIN jadwal ON booking.jadwal_id = jadwal.id
+          WHERE users.email = '$username'";
+$history_result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +38,7 @@ $history_result = mysqli_query($conn, "SELECT * FROM booking WHERE users_email='
     <table border="1">
         <tr>
             <th>ID</th>
-            <th>Jadwal ID</th>
+            <th>Jam Keberangkatan</th>
             <th>Type Ticket ID</th>
             <th>Email Pengguna</th>
             <th>Quantity</th>
@@ -34,10 +47,10 @@ $history_result = mysqli_query($conn, "SELECT * FROM booking WHERE users_email='
         </tr>
         <?php while ($row = mysqli_fetch_assoc($history_result)): ?>
         <tr>
-            <td><?= $row['id']; ?></td>
-            <td><?= $row['jadwal_id']; ?></td>
+            <td><?= $row['booking_id']; ?></td>
+            <td><?= $row['jam_keberangkatan']; ?></td>
             <td><?= $row['type_ticket_id']; ?></td>
-            <td><?= $row['users_email']; ?></td>
+            <td><?= $username; ?></td>
             <td><?= $row['quantity']; ?></td>
             <td><?= $row['total_price']; ?></td>
             <td><?= $row['booking_date']; ?></td>

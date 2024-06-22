@@ -17,6 +17,7 @@ if (isset($_POST["login"])) {
     if ($row) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
+        $_SESSION['username'] = $email;
         $_SESSION['role'] = $row['role'];
 
         // Arahkan berdasarkan role

@@ -58,13 +58,23 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
 
     <h4>Pesan Tiket</h4>
     <form action="book.php" method="post">
-        <label for="jadwal_id">Jadwal ID:</label>
-        <input type="number" name="jadwal_id" id="jadwal_id" required><br>
+        <label for="jadwal_id">Pilih Jadwal Keberangkatan:</label>
+        <select name="jadwal_id" id="jadwal_id" required>
+            <?php mysqli_data_seek($jadwal_result, 0); // Reset cursor to beginning ?>
+            <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
+                <option value="<?= $row['id']; ?>"><?= $row['city']; ?> - <?= $row['jam_keberangkatan']; ?></option>
+            <?php endwhile; ?>
+        </select><br>
 
-        <label for="type_ticket_id">Type Ticket ID:</label>
-        <input type="number" name="type_ticket_id" id="type_ticket_id" required><br>
+        <label for="type_ticket_id">Pilih Jenis Tiket:</label>
+        <select name="type_ticket_id" id="type_ticket_id" required>
+            <?php mysqli_data_seek($type_ticket_result, 0); // Reset cursor to beginning ?>
+            <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
+                <option value="<?= $row['id']; ?>"><?= $row['class']; ?> - <?= $row['price']; ?></option>
+            <?php endwhile; ?>
+        </select><br>
 
-        <label for="quantity">Quantity:</label>
+        <label for="quantity">Jumlah Tiket:</label>
         <input type="number" name="quantity" id="quantity" required><br>
 
         <button type="submit">Pesan</button>
