@@ -4,7 +4,6 @@ if (!isset($_SESSION["login"])) {
     header("Location: login.php");
     exit;
 }
-
 require_once 'connection.php';
 
 // Ambil username dari session
@@ -20,7 +19,7 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
 <html lang="en">
 
 <head>
-    <title>Halaman <?= htmlspecialchars($username); ?></title>
+    <title>Halaman<?= htmlspecialchars($username); ?></title>
 </head>
 
 <body>
