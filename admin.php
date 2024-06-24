@@ -113,8 +113,8 @@ $user_booking_result = mysqli_query($conn,"SELECT * FROM booking JOIN users ON u
     <div class="sidenav">
         <div class="title">Welcome Admin :v</div>
         <a href="admin.php" class="active">Dashboard</a>
-        <a href="schedule.php">Schedule</a>
-        <a href="client.php">Client</a>
+        <a href="admin_schedule.php">Schedule</a>
+        <a href="admin_client.php">Client</a>
         <a href="logout.php">Logout</a>
     </div>
     <div class="container">

@@ -6,8 +6,8 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
 }
     require_once 'connection.php';
 
-    $jadwal_result = mysqli_query($conn,"SELECT * FROM jadwal");
-    $ticket_result = mysqli_query($conn,"SELECT * FROM type_ticket");
+    $user_result = mysqli_query($conn,"SELECT * FROM users WHERE role = 'user'");
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,12 +26,12 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
         .sidenav{
             height: 100%;
             width: 170px;
-            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-            z-index: 1; /* Stay on top */
-            top: 0; /* Stay at the top */
+            position: fixed;
+            z-index: 1; 
+            top: 0; 
             left: 0;
             background-color: #191C24;
-            overflow-x: hidden; /* Disable horizontal scroll */
+            overflow-x: hidden;
             padding-top: 20px;
         }
         .sidenav a{
@@ -75,7 +75,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
             padding: 1px 16px;
             color: white;
         }
-        .card-jadwal{
+        .card-table{
             border-radius: 5px;
             background-color: #191C24;
             padding: 20px;
@@ -83,20 +83,13 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
         table{
             justify-content: center;
             width: 100%;     
-            height: 200px;      
+            height: 100px;      
             border-collapse:collapse;
             
         }
         .top-table{
             background-color: #0F1015;
             padding: 1px;
-        }
-        .edit{
-            text-decoration: none;
-            border-radius: 5px;
-            background-color: green;
-            padding: 10px;
-            color: white;
         }
         .delete{
             text-decoration: none;
@@ -115,54 +108,35 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
     <div class="sidenav">
         <div class="title">Welcome Admin :v</div>
         <a href="admin.php">Dashboard</a>
-        <a href="schedule.php" class="active">Schedule</a>
-        <a href="client.php">Client</a>
+        <a href="admin_schedule.php">Schedule</a>
+        <a href="admin_client.php" class="active">Client</a>
         <a href="logout.php">Logout</a>
     </div>
     <div class="container">
-        <div class="title">Schedule</div>
-        <div class="card-jadwal">
+        <div class="title">Member</div>
+        <div class="card-table">
             <table>
                 <tr>
-                    <td class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">City</td>
-                    <td class="top-table">Time</td>
+                    <td class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">Name</td>
+                    <td class="top-table">Account</td>
                     <td class="top-table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
                 </tr>
-                <?php while($row = mysqli_fetch_array($jadwal_result)){
-                    
-                ?>
+                <?php
+                    while($row=mysqli_fetch_array($user_result)){
+                    ?>
                 <tr>
-                    <td><?= $row['city']; ?></td>
-                    <td><?= $row['jam_keberangkatan']; ?></td>
-                    <td><a class="edit" href="operations/update.php?id=<?=$row['id'];?>">Update</a> <a class="delete" href="operations/delete.php?id=<?=$row['id'];?>">Delete</a></td>
+                    <td><?=$row['name'];?></td>
+                    <td><?=$row['email'];?></td>
+                    <td><a class="delete" href="operations/delete.php?=id<?=$row['id'];?>">Delete</a></td>
                 </tr>
+
                 <?php
                 }
-                ?>  
-            </table>
-        </div>
-        
-        <div class="title">Ticket</div>
-        <div class="card-jadwal">
-            <table>
-                <tr>
-                    <td class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">Class</td>
-                    <td class="top-table">Price</td>
-                    <td class="top-table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
-                </tr>
-                <?php while($row = mysqli_fetch_array($ticket_result)){
                 ?>
-                <tr>
-                    <td><?= $row['class']; ?></td>
-                    <td>Rp.<?= number_format($row['price']); ?></td>
-                    <td><a class="edit" href="operations/update.php?id=<?=$row['id'];?>">Update</a></td>
-                </tr>
-                <?php
-                }
-            ?>  
+            
             </table>
         </div>
-        
+
     </div>
 </body>
 </html>

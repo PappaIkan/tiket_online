@@ -23,7 +23,7 @@ if (isset($_POST["login"])) {
 
         // Arahkan berdasarkan role
         if ($row['role'] == 'admin') {
-            header("Location: admin\admin.php");
+            header("Location: admin.php");
             exit;
         } elseif ($row['role'] == 'user') {
             header("Location: index.php");
