@@ -180,7 +180,7 @@ $result = $stmt->get_result();
                     <th>Quantity</th>
                     <th>Total Harga</th>
                     <th>Tanggal Pemesanan</th>
-                    <th>HAPUS</th>
+                    <th>HAPUS / EDIT</th>
                 </tr>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
@@ -192,7 +192,8 @@ $result = $stmt->get_result();
                         <td><?= $row['quantity']; ?></td>
                         <td><?= number_format($row['total_price']); ?></td>
                         <td><?= $row['booking_date']; ?></td>
-                        <td><a href="hapus.php?booking_id=<?= $row['booking_id']; ?>" >hapus</a></td>
+                        <td><a href="hapus.php?booking_id=<?= $row['booking_id']; ?>" >hapus</a><br><br>
+                        <a href="edit_book.php?booking_id=<?= $row['booking_id']; ?>" >edit</a></td>
                     </tr>
                 <?php endwhile; ?>
             </table>
