@@ -37,6 +37,7 @@ if (isset($_POST["login"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Halaman Login</title>
@@ -49,13 +50,15 @@ if (isset($_POST["login"])) {
         }
     </style>
 </head>
+
 <body>
     <div class="inner">
-        <h1>Halaman Login</h1>
+        <h1 style="text-align:center;">Halaman Login</h1>
         <?php if (isset($error)): ?>
             <p style="color: red; font-style: italic;">Email atau password salah</p>
         <?php endif; ?>
         <form action="" method="post">
+        <div style="text-align:center;">
             <table border=0 cellpadding=5>
                 <tr>
                     <td><label for="email">Email</label></td>
@@ -65,11 +68,11 @@ if (isset($_POST["login"])) {
                     <td><label for="password">Password</label></td>
                     <td><input type="password" name="password" id="password"></td>
                 </tr>
-                <tr>
-                    <td><button type="submit" name="login">Login</button></td>
-                </tr>
-            </table>
+                </table><br><br>
+                <td style="possi"><button type="submit" name="login">Login</button></td><br><br>
+            <a href="register.php">jika anda belom punya akanu!<a href="register.php" style="color:blue">daftar</a></a></div>
         </form>
     </div>
 </body>
+
 </html>
