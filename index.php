@@ -19,68 +19,199 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
 <html lang="en">
 
 <head>
-    <title>Halaman<?= htmlspecialchars($username); ?></title>
+    <meta charset="UTF-8">
+    <title>Halaman <?= htmlspecialchars($username); ?></title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #191C24;
+            overflow-x: hidden;
+            padding-top: 20px;
+            transition: 0.5s;
+        }
+
+        .sidenav a {
+            margin: 20px 0;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            color: #4F5775;
+            display: block;
+        }
+
+        .sidenav a:hover,
+        .sidenav a.active {
+            color: white;
+            background-color: #0F1015;
+            transition: 0.5s;
+        }
+
+        .title {
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: white;
+        }
+
+        .main {
+            margin-left: 200px;
+            padding: 20px;
+            transition: margin-left 0.5s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            background-color: #191C24;
+            border-radius: 5px;
+        }
+
+        h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: separate;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        table,th,td {
+            border: 1px solid #4F5775;
+            padding: 12px;
+            text-align: center;
+            background-color: #0F1015;
+        }
+
+        th {
+            background-color: #4F5775;
+        }
+
+        a {
+            color: #4F5775;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #4F5775;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #333;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            left: 220px;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            z-index: 2;
+        }
+
+        .sidenav.hidden {
+            width: 0;
+            padding-top: 60px;
+        }
+
+        .main.expanded {
+            margin-left: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <h3>Selamat datang, <?= htmlspecialchars($username); ?>!</h3>
-    <h4>Jadwal Keberangkatan</h4>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Kota</th>
-            <th>Jam Keberangkatan</th>
-        </tr>
-        <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
-            <tr>
-                <td><?= $row['id']; ?></td>
-                <td><?= $row['city']; ?></td>
-                <td><?= $row['jam_keberangkatan']; ?></td>
-            </tr>
-        <?php endwhile; ?>
-    </table>
-    <h4>Jenis Tiket</h4>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Kelas</th>
-            <th>Harga</th>
-        </tr>
-        <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
-            <tr>
-                <td><?= $row['id']; ?></td>
-                <td><?= $row['class']; ?></td>
-                <td><?= $row['price']; ?></td>
-            </tr>
-        <?php endwhile; ?>
-    </table>
+    <div class="sidenav" id="sidenav">
+        <div class="title">Welcome to Tiket Online</div>
+        <a href="index.php" class="active">Home</a>
+        <a href="pesan.php">Pesan tiket</a>
+        <a href="history.php">History</a>
+        <a href="logout.php">Logout</a>
+    </div>
 
-    <h4>Pesan Tiket</h4>
-    <form action="book.php" method="post">
-        <label for="jadwal_id">Pilih Jadwal Keberangkatan:</label>
-        <select name="jadwal_id" id="jadwal_id" required>
-            <?php mysqli_data_seek($jadwal_result, 0); // Reset cursor to beginning ?>
-            <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
-                <option value="<?= $row['id']; ?>"><?= $row['city']; ?> - <?= $row['jam_keberangkatan']; ?></option>
-            <?php endwhile; ?>
-        </select><br>
+    <span class="toggle-btn" id="toggleBtn">&#9776;</span>
 
-        <label for="type_ticket_id">Pilih Jenis Tiket:</label>
-        <select name="type_ticket_id" id="type_ticket_id" required>
-            <?php mysqli_data_seek($type_ticket_result, 0); // Reset cursor to beginning ?>
-            <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
-                <option value="<?= $row['id']; ?>"><?= $row['class']; ?> - <?= $row['price']; ?></option>
-            <?php endwhile; ?>
-        </select><br>
+    <div class="main" id="mainContent">
+        <div class="container">
+            <div class="title">Dashboard</div>
+            <h4>Jadwal Keberangkatan</h4>
+            <div class="card-table">
+                <table border="1">
+                    <tr>
+                        <th class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">ID</th>
+                        <th class="top-table">Kota</th>
+                        <th class="top-table">Jam Keberangkatan</th>
+                    </tr>
+                    <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
+                        <tr>
+                            <td><?= $row['id']; ?></td>
+                            <td><?= $row['city']; ?></td>
+                            <td><?= $row['jam_keberangkatan']; ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </table>
+            </div>
 
-        <label for="quantity">Jumlah Tiket:</label>
-        <input type="number" name="quantity" id="quantity" required><br>
+            <h4>Jenis Tiket</h4>
+            <div class="card-table">
+                <table border="1">
+                    <tr>
+                        <th class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">ID</th>
+                        <th class="top-table">Kelas</th>
+                        <th class="top-table">Harga</th>
+                    </tr>
+                    <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
+                        <tr>
+                            <td><?= $row['id']; ?></td>
+                            <td><?= $row['class']; ?></td>
+                            <td><?= $row['price']; ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </table>
+            </div>
+        </div>
+    </div>
 
-        <button type="submit">Pesan</button>
-    </form>
-
-    <p><a href="history.php">Riwayat Pemesanan</a></p>
-    <p><a href="logout.php">Logout</a></p>
+    <script>
+        document.getElementById('toggleBtn').onclick = function() {
+            var sidenav = document.getElementById('sidenav');
+            var mainContent = document.getElementById('mainContent');
+            sidenav.classList.toggle('hidden');
+            mainContent.classList.toggle('expanded');
+        }
+    </script>
 </body>
 
 </html>
