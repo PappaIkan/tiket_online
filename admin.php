@@ -123,16 +123,19 @@ $user_booking_result = mysqli_query($conn, "SELECT * FROM booking JOIN users ON 
         }
 
         table {
-            justify-content: center;
-            width: 100%;
-            height: 200px;
             border-collapse: collapse;
-            overflow-y: scroll;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        table,th,td {
+            padding: 12px;
+            text-align: center;
         }
 
         .top-table {
             background-color: #0F1015;
-            padding: 1px;
         }
     </style>
 </head>
@@ -194,11 +197,11 @@ $user_booking_result = mysqli_query($conn, "SELECT * FROM booking JOIN users ON 
                             <td><?= $row['name']; ?></td>
                             <td><?= $row['email']; ?></td>
                             <td><?= $row['class']; ?></td>
-                            <td><?= $row['city'], " ", $row['jam_keberangkatan']; ?></td>
+                            <td><?= $row['city'], " ", date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
                             <td><?= $row['booking_date']; ?></td>
                             <td><?= $row['booking_status']; ?></td>
                             <td><?= $row['quantity']; ?></td>
-                            <td><?= number_format($row['total_price']); ?></td>
+                            <td>Rp.<?= number_format($row['total_price']); ?></td>
                         </tr>
                         <?php
                     }

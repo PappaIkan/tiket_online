@@ -163,7 +163,7 @@ $result = $stmt->get_result();
 
 <body>
     <div class="sidenav">
-        <div class="title">Selamat Datang di Tiket Online</div>
+        <div class="title">Welcome to Tiket Online</div>
         <a href="index.php">Home</a>
         <a href="pesan.php">Pesan tiket</a>
         <a href="history.php" class="active">Riwayat Pemesanan</a>

@@ -103,15 +103,28 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
             padding: 10px;
             color: white;
         }
-        .delete{
-            text-decoration: none;
-            border-radius: 5px;
-            background-color: red;
-            padding: 10px;
-            color: white;
-        }
         td{
             text-align: center;
+        }
+        .add_button{
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            background-color: green;
+            padding: 10px;
+            position: absolute;
+            margin-left: 950px;
+            margin-top: 23px;
+        }
+        .add_button_ticket{
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            background-color: green;
+            padding: 10px;
+            position: absolute;
+            margin-left: 950px;
+            margin-top: 23px;
         }
     </style>
 </head>
@@ -125,6 +138,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
     </div>
     <div class="container">
         <div class="title">Schedule</div>
+        <a class="add_button" href="admin_add_schedule.php">Add</a>
         <div class="card-jadwal">
             <table>
                 <tr>
@@ -137,8 +151,8 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
                 ?>
                 <tr>
                     <td><?= $row['city']; ?></td>
-                    <td><?= $row['jam_keberangkatan']; ?></td>
-                    <td><a class="edit" href="operations/update.php?id=<?=$row['id'];?>">Update</a> <a class="delete" href="operations/delete.php?id=<?=$row['id'];?>">Delete</a></td>
+                    <td><?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
+                    <td><a class="edit" href="operations/update.php?id=<?=$row['id'];?>">Update</a>
                 </tr>
                 <?php
                 }
@@ -147,6 +161,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
         </div>
         
         <div class="title">Ticket</div>
+        <a href="admin_add_type.php" class="add_button_ticket">Add</a>
         <div class="card-jadwal">
             <table>
                 <tr>
