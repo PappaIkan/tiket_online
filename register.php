@@ -29,6 +29,7 @@ if (isset($_POST["register"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Halaman Register</title>
@@ -61,7 +62,9 @@ if (isset($_POST["register"])) {
             padding: 10px 0;
         }
 
-        input[type="text"], input[type="email"], input[type="password"] {
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
             width: 100%;
             padding: 10px;
             box-sizing: border-box;
@@ -86,6 +89,7 @@ if (isset($_POST["register"])) {
         }
     </style>
 </head>
+
 <body>
     <div class="inner">
         <h1>Halaman Register</h1>
@@ -110,8 +114,10 @@ if (isset($_POST["register"])) {
                     <td colspan="2"><input type="submit" name="register" value="Register"></td>
                 </tr>
             </table>
-            <div style="text-align:center;"><a href="login.php">jika anda sudah memiliki akun ? <a href="login.php" style="color:blue">daftar</a></a></div>
+            <div style="text-align:center;"><a href="login.php">jika anda sudah memiliki akun ? <a href="login.php"
+                        style="color:blue">daftar</a></a></div>
         </form>
     </div>
 </body>
+
 </html>
