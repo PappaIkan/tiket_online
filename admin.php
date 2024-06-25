@@ -102,6 +102,7 @@ $user_booking_result = mysqli_query($conn,"SELECT * FROM booking JOIN users ON u
             width: 100%;     
             height: 200px;      
             border-collapse:collapse;
+            overflow-y: scroll;
         }
         .top-table{
             background-color: #0F1015;

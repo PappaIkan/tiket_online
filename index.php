@@ -168,7 +168,7 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
                         <tr>
                             <td><?= $row['id']; ?></td>
                             <td><?= $row['city']; ?></td>
-                            <td><?= $row['jam_keberangkatan']; ?></td>
+                            <td><?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </table>
@@ -186,7 +186,7 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
                         <tr>
                             <td><?= $row['id']; ?></td>
                             <td><?= $row['class']; ?></td>
-                            <td><?= $row['price']; ?></td>
+                            <td>Rp.<?=number_format($row['price']); ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </table>

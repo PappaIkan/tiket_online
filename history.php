@@ -186,11 +186,11 @@ $result = $stmt->get_result();
                     <tr>
                         <td><?= $row['booking_id']; ?></td>
                         <td><?= $row['jadwal_id']; ?></td>
-                        <td><?= $row['jam_keberangkatan']; ?></td>
+                        <td><?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
                         <td><?= $row['type_ticket_id']; ?></td>
                         <td><?= $_SESSION['email']; ?></td>
                         <td><?= $row['quantity']; ?></td>
-                        <td><?= $row['total_price']; ?></td>
+                        <td><?= number_format($row['total_price']); ?></td>
                         <td><?= $row['booking_date']; ?></td>
                         <td><a href="hapus.php?booking_id=<?= $row['booking_id']; ?>" >hapus</a></td>
                     </tr>

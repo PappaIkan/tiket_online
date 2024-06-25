@@ -130,7 +130,7 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
                 <select name="jadwal_id" id="jadwal_id" required>
                     <?php mysqli_data_seek($jadwal_result, 0); // Reset cursor to beginning ?>
                     <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
-                        <option value="<?= $row['id']; ?>"><?= $row['city']; ?> - <?= $row['jam_keberangkatan']; ?></option>
+                        <option value="<?= $row['id']; ?>"><?= $row['city']; ?> - <?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></option>
                     <?php endwhile; ?>
                 </select>
 
@@ -138,7 +138,7 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
                 <select name="type_ticket_id" id="type_ticket_id" required>
                     <?php mysqli_data_seek($type_ticket_result, 0); // Reset cursor to beginning ?>
                     <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
-                        <option value="<?= $row['id']; ?>"><?= $row['class']; ?> - <?= $row['price']; ?></option>
+                        <option value="<?= $row['id']; ?>"><?= $row['class']; ?> - Rp.<?= number_format($row['price']); ?></option>
                     <?php endwhile; ?>
                 </select>
 
