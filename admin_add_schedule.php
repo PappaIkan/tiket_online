@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    // Periksa apakah pengguna sudah login dan apakah role adalah admin
+    if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
+        header("Location: login.php"); // Arahkan ke halaman login jika belum login atau bukan admin
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

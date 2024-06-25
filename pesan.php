@@ -118,7 +118,7 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
         <div class="title">Welcome to Tiket Online</div>
         <a href="index.php">Home</a>
         <a href="pesan.php" class="active">Pesan tiket</a>
-        <a href="history.php">History</a>
+        <a href="history.php">Riwayat Pemesanan</a>
         <a href="logout.php">Logout</a>
     </div>
 

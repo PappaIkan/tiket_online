@@ -6,14 +6,23 @@
         header("Location: login.php"); // Arahkan ke halaman login jika belum login atau bukan admin
         exit;
     }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiket Online</title>
-    <style>
+    require_once "connection.php";
+    if(isset($_POST['submit'])){
+        $id = $_POST['id'];
+        $city = $_POST['city'];
+        $jam_keberangkatan = $_POST['jam_keberangkatan'];
+        mysqli_query($conn,"UPDATE jadwal SET city = '$city',jam_keberangkatan = '$jam_keberangkatan' WHERE id = '$id'");
+        header("Location:admin_schedule.php");
+
+    }
+    $id = $_GET['id'];
+    if (!isset($_GET['id'])) {
+        header("Location: admin_schedule.php");
+        exit;
+    }
+    $query = mysqli_query($conn,"SELECT * FROM jadwal WHERE id = $id ");
+    while($row = mysqli_fetch_array($query)){?>
+        <style>
         body{
             margin: 0;
             padding: 0;
@@ -64,6 +73,11 @@
             .sidenav {padding-top: 450px;}
             .sidenav a {font-size: 18px;}
         }
+        .container{
+            margin-left: 170px;
+            padding: 1px 16px;
+            color: white;
+        }
 
         .main {
             margin-left: 200px;
@@ -81,7 +95,7 @@
             display: flex;
             justify-content: center;
         }
-        input[type="text"] {
+        input[type="text"],input[type="time"]{
             padding: 10px;
             margin-bottom: 20px;
             border: none;
@@ -104,46 +118,39 @@
         h3 {
             margin-bottom: 20px;
             text-align: center;
-            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="sidenav">
-        <div class="title">Welcome Admin</div>
-        <a href="admin.php">Dashboard</a>
-        <a href="admin_schedule.php">Schedule</a>
-        <a href="admin_client.php">Client</a>
-        <a href="logout.php">Logout</a>
-    </div>
     <div class="main">
+        <div class="sidenav">
+            <div class="title">Welcome Admin :v</div>
+            <a href="admin.php">Dashboard</a>
+            <a href="admin_schedule.php" class="active">Schedule</a>
+            <a href="admin_client.php">Client</a>
+            <a href="logout.php">Logout</a>
+        </div>
         <div class="container">
-            <h3>Add Tipe Tiket</h3>
-            <form action="admin_add_type.php" method="post">
-            <table>
+            <h3>Edit Jadwal</h3>
+            <form action="admin_update_schedule.php" method="post">
+                <table>
                     <tr>
-                        <td><input type="text" placeholder="Kelas" name="kelas" required></td>
+                        <td><input type="text" name="id" value="<?= $row['id'];?>"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" placeholder="Harga" name="harga" required oninput="this.value = this.value.replace(/[^0-9]/g, '');"></td>
+                        <td><input type="text" placeholder="City" name="city" id="city" value="<?= $row['city'];?>"></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Tambahkan" name="submit"></td>
+                        <td><input type="time" name="jam_keberangkatan" id="jam_keberangkatan" value="<?= $row['jam_keberangkatan'];?>"></td>
                     </tr>
+                    <tr>
+                        <td><input type="submit" name="submit" value="Tambahkan"></td>
+                    </tr>
+            
                 </table>
             </form>
         </div>
     </div>
-    
-</body>
-</html>
-
-<?php
-    require_once "connection.php";
-    if(isset($_POST['submit'])){
-        $kelas = $_POST['kelas'];
-        $harga = $_POST['harga'];
-        mysqli_query($conn,"INSERT INTO type_ticket (class,price) VALUES('$kelas','$harga')");
-        header("Location:admin_schedule.php");
+    <?php
     }
 ?>

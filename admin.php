@@ -152,7 +152,7 @@ $user_booking_result = mysqli_query($conn, "SELECT * FROM booking JOIN users ON 
         <div class="title">Dashboard</div>
         <div class="card-content-top">
             <div class="card-sale">
-                <div class="card-content-title">Sale</div>
+                <div class="card-content-title">Total Uang Masuk</div>
                 <?php
                 while ($row = mysqli_fetch_array($sale_result)) {
                     ?>
@@ -164,7 +164,7 @@ $user_booking_result = mysqli_query($conn, "SELECT * FROM booking JOIN users ON 
                 <div></div>
             </div>
             <div class="card-order">
-                <div class="card-content-title">order</div>
+                <div class="card-content-title">Jumlah Tiket Terbeli</div>
                 <?php
                 while ($row = mysqli_fetch_array($booking_result)) {
                     ?>

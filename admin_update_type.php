@@ -1,20 +1,31 @@
 <?php
-    session_start();
+session_start();
 
-    // Periksa apakah pengguna sudah login dan apakah role adalah admin
-    if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
-        header("Location: login.php"); // Arahkan ke halaman login jika belum login atau bukan admin
+// Periksa apakah pengguna sudah login dan apakah role adalah admin
+if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
+    header("Location: login.php"); // Arahkan ke halaman login jika belum login atau bukan admin
+    exit;
+}
+    require_once "connection.php";
+    if(isset($_POST['submit'])){
+        $id = $_POST['id'];
+        $kelas = $_POST['kelas'];
+        $harga = $_POST['harga'];
+        mysqli_query($conn,"UPDATE type_ticket SET class = '$kelas',price = '$harga' WHERE id = '$id'");
+        header("Location:admin_schedule.php");
+
+
+    }?>
+    <?php
+    $id = $_GET['id'];
+    if (!isset($_GET['id'])) {
+        header("Location: admin_schedule.php");
         exit;
     }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiket Online</title>
-    <style>
-        body{
+    $query = mysqli_query($conn,"SELECT * FROM type_ticket WHERE id = $id ");
+    while($row = mysqli_fetch_array($query)){?>
+        <style>
+            body{
             margin: 0;
             padding: 0;
             font-family:Arial, Helvetica, sans-serif;
@@ -106,44 +117,35 @@
             text-align: center;
             color: white;
         }
-    </style>
-</head>
-<body>
-    <div class="sidenav">
-        <div class="title">Welcome Admin</div>
-        <a href="admin.php">Dashboard</a>
-        <a href="admin_schedule.php">Schedule</a>
-        <a href="admin_client.php">Client</a>
-        <a href="logout.php">Logout</a>
-    </div>
-    <div class="main">
-        <div class="container">
-            <h3>Add Tipe Tiket</h3>
-            <form action="admin_add_type.php" method="post">
-            <table>
+        </style>
+        <div class="sidenav">
+            <div class="title">Welcome Admin</div>
+            <a href="admin.php">Dashboard</a>
+            <a href="admin_schedule.php">Schedule</a>
+            <a href="admin_client.php">Client</a>
+            <a href="logout.php">Logout</a>
+        </div>
+        <div class="main">
+            <div class="container">
+                <h3>Edit Tipe Tiket</h3>
+                <form action="admin_update_type.php" method="post">
+                <table>
                     <tr>
-                        <td><input type="text" placeholder="Kelas" name="kelas" required></td>
+                        <td><input type="text" placeholder="ID" name="id" value="<?= $row['id'];?>" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="text" placeholder="Harga" name="harga" required oninput="this.value = this.value.replace(/[^0-9]/g, '');"></td>
+                        <td><input type="text" placeholder="Kelas" name="kelas" value="<?= $row['class'];?>" required></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Tambahkan" name="submit"></td>
+                        <td><input type="text" placeholder="Harga" name="harga" value="<?= number_format($row['price']);?>" required oninput="this.value = this.value.replace(/[^0-9]/g, '');"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit"  name="submit" value="Tambahkan"></td>
                     </tr>
                 </table>
             </form>
         </div>
     </div>
-    
-</body>
-</html>
-
-<?php
-    require_once "connection.php";
-    if(isset($_POST['submit'])){
-        $kelas = $_POST['kelas'];
-        $harga = $_POST['harga'];
-        mysqli_query($conn,"INSERT INTO type_ticket (class,price) VALUES('$kelas','$harga')");
-        header("Location:admin_schedule.php");
-    }
-?>
+    <?php   
+    }  
+    ?>

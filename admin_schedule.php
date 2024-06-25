@@ -6,8 +6,8 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
 }
     require_once 'connection.php';
 
-    $jadwal_result = mysqli_query($conn,"SELECT * FROM jadwal");
-    $ticket_result = mysqli_query($conn,"SELECT * FROM type_ticket");
+    $jadwal_result = mysqli_query($conn,"SELECT id,city,jam_keberangkatan FROM jadwal");
+    $ticket_result = mysqli_query($conn,"SELECT id AS id_type,class,price FROM type_ticket");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,7 +152,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
                 <tr>
                     <td><?= $row['city']; ?></td>
                     <td><?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
-                    <td><a class="edit" href="operations/update.php?id=<?=$row['id'];?>">Update</a>
+                    <td><a class="edit" href="admin_update_schedule.php?id=<?=$row['id'];?>">Update</a>
                 </tr>
                 <?php
                 }
@@ -174,7 +174,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
                 <tr>
                     <td><?= $row['class']; ?></td>
                     <td>Rp.<?= number_format($row['price']); ?></td>
-                    <td><a class="edit" href="operations/update.php?id=<?=$row['id'];?>">Update</a></td>
+                    <td><a class="edit" href="admin_update_type.php?id=<?=$row['id_type'];?>">Update</a></td>
                 </tr>
                 <?php
                 }

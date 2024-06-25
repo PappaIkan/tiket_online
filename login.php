@@ -70,7 +70,7 @@ if (isset($_POST["login"])) {
                 </tr>
                 </table><br><br>
                 <td style="possi"><button type="submit" name="login">Login</button></td><br><br>
-            <a href="register.php">jika anda belom punya akanu!<a href="register.php" style="color:blue">daftar</a></a></div>
+            <a href="register.php">jika anda belom punya akun!<a href="register.php" style="color:blue">daftar</a></a></div>
         </form>
     </div>
 </body>

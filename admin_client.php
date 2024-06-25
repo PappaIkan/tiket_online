@@ -132,7 +132,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
                 <tr>
                     <td><?=$row['name'];?></td>
                     <td><?=$row['email'];?></td>
-                    <td><a class="delete" href="operations/delete.php?=id<?=$row['id'];?>">Delete</a></td>
+                    <td><a class="delete" href="admin_delete.php?=id<?=$row['id'];?>">Delete</a></td>
                 </tr>
 
                 <?php
