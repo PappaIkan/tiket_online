@@ -141,14 +141,6 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
             z-index: 2;
         }
 
-        .sidenav.hidden {
-            width: 0;
-            padding-top: 60px;
-        }
-
-        .main.expanded {
-            margin-left: 0;
-        }
     </style>
 </head>
 
@@ -160,8 +152,6 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
         <a href="history.php">History</a>
         <a href="logout.php">Logout</a>
     </div>
-
-    <span class="toggle-btn" id="toggleBtn">&#9776;</span>
 
     <div class="main" id="mainContent">
         <div class="container">
@@ -203,15 +193,6 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
             </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('toggleBtn').onclick = function() {
-            var sidenav = document.getElementById('sidenav');
-            var mainContent = document.getElementById('mainContent');
-            sidenav.classList.toggle('hidden');
-            mainContent.classList.toggle('expanded');
-        }
-    </script>
 </body>
 
 </html>
