@@ -19,15 +19,18 @@ $user_id = $_SESSION['id'];
 // Query SQL untuk mengambil riwayat pemesanan berdasarkan user_id
 $query = "SELECT 
               booking.booking_id, 
-              booking.jadwal_id, 
               booking.booking_date, 
-              booking.booking_status, 
-              booking.type_ticket_id, 
+              booking.booking_status,
+              type_ticket.id, 
+              type_ticket.class,
+              type_ticket.price, 
               booking.quantity, 
               booking.total_price,
-              jadwal.jam_keberangkatan
+              jadwal.jam_keberangkatan,
+              jadwal.city,
+              jadwal.id AS 'id_jadwal'
           FROM booking
-          JOIN jadwal ON booking.jadwal_id = jadwal.id
+          JOIN jadwal ON booking.jadwal_id = jadwal.id JOIN type_ticket ON booking.type_ticket_id = type_ticket.id
           WHERE booking.user_id = ?";
 
 // Prepare statement
@@ -160,10 +163,10 @@ $result = $stmt->get_result();
 
 <body>
     <div class="sidenav">
-        <div class="title">Welcome to Tiket Online</div>
+        <div class="title">Selamat Datang di Tiket Online</div>
         <a href="index.php">Home</a>
         <a href="pesan.php">Pesan tiket</a>
-        <a href="history.php" class="active">History</a>
+        <a href="history.php" class="active">Riwayat Pemesanan</a>
         <a href="logout.php">Logout</a>
     </div>
 
@@ -172,28 +175,28 @@ $result = $stmt->get_result();
             <h3>Riwayat Pemesanan</h3>
             <table>
                 <tr>
-                    <th>ID</th>
-                    <th>Jadwal ID</th>
-                    <th>Jam Keberangkatan</th>
-                    <th>Type Ticket ID</th>
+                    <th>ID Jadwal</th>
+                    <th>Jadwal</th>
+                    <th>ID Tipe Tiket</th>
+                    <th>Tipe Tiket</th>
                     <th>Email Pengguna</th>
-                    <th>Quantity</th>
+                    <th>Jumlah</th>
                     <th>Total Harga</th>
                     <th>Tanggal Pemesanan</th>
-                    <th>HAPUS / EDIT</th>
+                    <th>HAPUS / UBAH</th>
                 </tr>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= $row['booking_id']; ?></td>
-                        <td><?= $row['jadwal_id']; ?></td>
-                        <td><?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
-                        <td><?= $row['type_ticket_id']; ?></td>
+                        <td><?= $row['id_jadwal'];?></td>
+                        <td><?= $row['city'],"-", date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
+                        <td><?= $row['id'];?></td>
+                        <td><?= $row['class'], "-Rp.",number_format($row['price']); ?></td>
                         <td><?= $_SESSION['email']; ?></td>
                         <td><?= $row['quantity']; ?></td>
-                        <td><?= number_format($row['total_price']); ?></td>
+                        <td>Rp.<?= number_format($row['total_price']); ?></td>
                         <td><?= $row['booking_date']; ?></td>
-                        <td><a href="hapus.php?booking_id=<?= $row['booking_id']; ?>" >hapus</a><br><br>
-                        <a href="edit_book.php?booking_id=<?= $row['booking_id']; ?>" >edit</a></td>
+                        <td><a href="hapus.php?booking_id=<?= $row['booking_id']; ?>" >Hapus</a><br><br>
+                        <a href="edit_book.php?booking_id=<?= $row['booking_id']; ?>" >Ubah</a></td>
                     </tr>
                 <?php endwhile; ?>
             </table>

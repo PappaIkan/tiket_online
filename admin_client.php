@@ -80,16 +80,21 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
             background-color: #191C24;
             padding: 20px;
         }
-        table{
-            justify-content: center;
-            width: 100%;     
-            height: 100px;      
-            border-collapse:collapse;
-            
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
         }
-        .top-table{
+
+        table,td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .top_table {
             background-color: #0F1015;
-            padding: 1px;
         }
         .delete{
             text-decoration: none;
@@ -117,9 +122,9 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
         <div class="card-table">
             <table>
                 <tr>
-                    <td class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">Name</td>
-                    <td class="top-table">Account</td>
-                    <td class="top-table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
+                    <td class="top_table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">Name</td>
+                    <td class="top_table">Account</td>
+                    <td class="top_table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
                 </tr>
                 <?php
                     while($row=mysqli_fetch_array($user_result)){

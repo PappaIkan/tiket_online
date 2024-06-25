@@ -152,39 +152,33 @@ $type_ticket_result = mysqli_query($conn, "SELECT * FROM type_ticket");
         <a href="history.php">History</a>
         <a href="logout.php">Logout</a>
     </div>
-
     <div class="main" id="mainContent">
         <div class="container">
             <div class="title">Dashboard</div>
             <h4>Jadwal Keberangkatan</h4>
             <div class="card-table">
-                <table border="1">
+                <table>
                     <tr>
-                        <th class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">ID</th>
-                        <th class="top-table">Kota</th>
-                        <th class="top-table">Jam Keberangkatan</th>
+                        <th>Kota</th>
+                        <th>Jam Keberangkatan</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($jadwal_result)): ?>
                         <tr>
-                            <td><?= $row['id']; ?></td>
                             <td><?= $row['city']; ?></td>
                             <td><?= date('H:i',strtotime($row['jam_keberangkatan'])); ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </table>
             </div>
-
             <h4>Jenis Tiket</h4>
             <div class="card-table">
-                <table border="1">
+                <table>
                     <tr>
-                        <th class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">ID</th>
-                        <th class="top-table">Kelas</th>
-                        <th class="top-table">Harga</th>
+                        <th>Kelas</th>
+                        <th>Harga</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($type_ticket_result)): ?>
                         <tr>
-                            <td><?= $row['id']; ?></td>
                             <td><?= $row['class']; ?></td>
                             <td>Rp.<?=number_format($row['price']); ?></td>
                         </tr>

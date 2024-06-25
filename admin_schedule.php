@@ -80,16 +80,21 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
             background-color: #191C24;
             padding: 20px;
         }
-        table{
-            justify-content: center;
-            width: 100%;     
-            height: 200px;      
-            border-collapse:collapse;
-            
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
         }
-        .top-table{
+
+        table,td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .top_table {
             background-color: #0F1015;
-            padding: 1px;
         }
         .edit{
             text-decoration: none;
@@ -105,7 +110,6 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
             padding: 10px;
             color: white;
         }
-
         td{
             text-align: center;
         }
@@ -124,9 +128,9 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
         <div class="card-jadwal">
             <table>
                 <tr>
-                    <td class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">City</td>
-                    <td class="top-table">Time</td>
-                    <td class="top-table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
+                    <td class="top_table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">City</td>
+                    <td class="top_table">Time</td>
+                    <td class="top_table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
                 </tr>
                 <?php while($row = mysqli_fetch_array($jadwal_result)){
                     
@@ -146,9 +150,9 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
         <div class="card-jadwal">
             <table>
                 <tr>
-                    <td class="top-table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">Class</td>
-                    <td class="top-table">Price</td>
-                    <td class="top-table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
+                    <td class="top_table" style="border-top-left-radius: 5px; border-bottom-left-radius:5px;">Class</td>
+                    <td class="top_table">Price</td>
+                    <td class="top_table" style="border-top-right-radius: 5px; border-bottom-right-radius:5px;">Action</td>
                 </tr>
                 <?php while($row = mysqli_fetch_array($ticket_result)){
                 ?>

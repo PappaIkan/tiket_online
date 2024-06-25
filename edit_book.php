@@ -144,7 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         input[type="number"],
-        input[type="date"] {
+        input[type="date"],
+        input[type="text"] {
             padding: 10px;
             margin-bottom: 20px;
             border: none;
@@ -187,10 +188,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h3>Edit Pemesanan</h3>
             <form method="post">
                 <label for="jadwal_id">Jadwal ID:</label>
-                <input type="number" name="jadwal_id" value="<?= $booking['jadwal_id']; ?>" required>
+                <input type="text" name="jadwal_id" value="<?= $booking['jadwal_id']; ?>" readonly>
 
                 <label for="type_ticket_id">Type Ticket ID:</label>
-                <input type="number" name="type_ticket_id" value="<?= $booking['type_ticket_id']; ?>" required>
+                <input type="text" name="type_ticket_id" value="<?= $booking['type_ticket_id']; ?>" readonly>
 
                 <label for="quantity">Quantity:</label>
                 <input type="number" name="quantity" value="<?= $booking['quantity']; ?>" required>
