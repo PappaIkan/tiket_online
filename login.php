@@ -69,7 +69,7 @@ if (isset($_POST["login"])) {
                     <td><input type="password" name="password" id="password"></td>
                 </tr>
                 </table><br><br>
-                <td style="possi"><button type="submit" name="login">Login</button></td><br><br>
+                <td><button type="submit" name="login">Login</button></td><br><br>
             <a href="register.php">jika anda belom punya akun!<a href="register.php" style="color:blue">daftar</a></a></div>
         </form>
     </div>
